@@ -1,9 +1,13 @@
 package tech.infynyt.wiz;
 
-import tink.http.Header.HeaderField;
-import tink.Url;
+import haxe.Exception;
+import haxe.io.Path;
+import sys.io.File;
+import haxe.zip.Entry;
+import haxe.zip.Tools;
+import haxe.zip.Uncompress;
+import haxe.io.Bytes;
 import tink.http.Client;
-import sys.Http;
 
 class Handler {
 	public static function install(name:String):Bool {
@@ -16,9 +20,8 @@ class Handler {
 		}
 		Console.success("Package found: " + name);
 		Console.log("Downloading package: " + name);
-		var binary = Handler.download(pkg);
-		Console.debug(binary);
-		if (binary == null) {
+		var bin = Handler.download(pkg);
+		if (bin == null) {
 			Console.error("Package download failed: " + name);
 			return false;
 		}
@@ -42,17 +45,17 @@ class Handler {
 				keywords: [],
 				main: "Test.hx",
 				// downloadUrl: "http://localhost:9724/packages/test/1.0.0/test.zip",
-				downloadUrl: "http://google.com",
+				downloadUrl: "http://infynyt.github.io/packages/test/1.0.0/",
 				author: "SidGames5",
 			};
 		};
 		return null;
 	}
 
-	public static function download(pkg:Package):String {
-		Console.debug("Downloading package: " + pkg.name);
-
+	public static function download(pkg:Package):Bytes {
 		var output = null;
+
+		var binurl = pkg.downloadUrl + "pkg.hl";
 
 		// var req = new Http(pkg.downloadUrl);
 		// req.request();
@@ -65,24 +68,22 @@ class Handler {
 		// 	output = data;
 		// 	return data;
 		// };
-		Client.fetch(pkg.downloadUrl, {
-			headers: [HeaderField.ofString("content-length")],
-		}).all().handle(function(o) switch o {
+		Console.log("Fetching:" + binurl);
+		Client.fetch(binurl).all().handle(function(o) switch o {
 			case Success(res):
-				Console.debug(res.header.statusCode);
-				var data = res.body.toString();
+				Console.debug("Status code: " + res.header.statusCode);
+				var data = res.body.toBytes();
 				output = data;
+				Console.debug("Data: " + data);
 			case Failure(e):
 				Console.error("Http request failed: " + e);
 		});
 		return output;
 	}
 
-	public static function compile(dir:String):Bool {
-		return false;
-	}
-
 	public static function execute(bin:String):Bool {
+		// first we must save the binary file on the disk (we cant keep storing it in memory)
+		File.saveBytes(Path.join([Sys.getCwd(), "tmp/", "installtemp.tmp"]), bin);
 		return false;
 	}
 

@@ -17,9 +17,13 @@ class Wiz {
 				} else {
 					var timestart = Date.now().getTime();
 					Console.log("Installing package " + args[1]);
-					Handler.install(args[1]);
+					var success = Handler.install(args[1]);
 					var timeend = Date.now().getTime();
-					Console.success("Finished in " + ((timeend - timestart) / 1000) + " seconds");
+					if (success) {
+						Console.success("Installed in " + ((timeend - timestart) / 1000) + " seconds");
+					} else {
+						Console.error("Failed in " + ((timeend - timestart) / 1000) + " seconds");
+					}
 				}
 		}
 		return;

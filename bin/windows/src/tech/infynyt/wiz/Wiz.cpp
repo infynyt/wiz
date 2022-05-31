@@ -73,14 +73,21 @@ HXLINE(  35)						s = HX_("",00,00,00,00);
             					}
 HXDLIN(  35)					::Console_obj::printFormatted((s + HX_("\n",0a,00,00,00)),0);
             				}
-HXLINE(  20)				::tech::infynyt::wiz::Handler_obj::install(::tech::infynyt::wiz::Wiz_obj::args->__get(1));
+HXLINE(  20)				bool success = ::tech::infynyt::wiz::Handler_obj::install(::tech::infynyt::wiz::Wiz_obj::args->__get(1));
 HXLINE(  21)				Float timeend = ::Date_obj::now()->getTime();
-HXLINE(  50)				{
-HXLINE(  50)					::String s1 = (::Console_obj::successPrefix + (HX_("",00,00,00,00) + ((HX_("Finished in ",0d,61,8b,9c) + ((timeend - timestart) / ( (Float)(1000) ))) + HX_(" seconds",5f,fa,db,80))));
-HXDLIN(  50)					if (::hx::IsNull( s1 )) {
-HXLINE(  50)						s1 = HX_("",00,00,00,00);
+HXLINE(  22)				if (success) {
+HXLINE(  50)					::String s = (::Console_obj::successPrefix + (HX_("",00,00,00,00) + ((HX_("Installed in ",95,bf,30,cf) + ((timeend - timestart) / ( (Float)(1000) ))) + HX_(" seconds",5f,fa,db,80))));
+HXDLIN(  50)					if (::hx::IsNull( s )) {
+HXLINE(  50)						s = HX_("",00,00,00,00);
             					}
-HXDLIN(  50)					::Console_obj::printFormatted((s1 + HX_("\n",0a,00,00,00)),0);
+HXDLIN(  50)					::Console_obj::printFormatted((s + HX_("\n",0a,00,00,00)),0);
+            				}
+            				else {
+HXLINE(  45)					::String s = (::Console_obj::errorPrefix + (HX_("",00,00,00,00) + ((HX_("Failed in ",d8,cc,28,8e) + ((timeend - timestart) / ( (Float)(1000) ))) + HX_(" seconds",5f,fa,db,80))));
+HXDLIN(  45)					if (::hx::IsNull( s )) {
+HXLINE(  45)						s = HX_("",00,00,00,00);
+            					}
+HXDLIN(  45)					::Console_obj::printFormatted((s + HX_("\n",0a,00,00,00)),2);
             				}
             			}
             		}

@@ -1898,16 +1898,15 @@
   <file name="src/tech/infynyt/wiz/Handler.cpp" >
    <depend name="include/Console.h"/>
    <depend name="include/Std.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
    <depend name="include/tech/infynyt/wiz/Handler.h"/>
    <depend name="include/tink/_Url/Url_Impl_.h"/>
    <depend name="include/tink/chunk/ChunkObject.h"/>
    <depend name="include/tink/core/LinkObject.h"/>
-   <depend name="include/tink/core/NamedWith.h"/>
    <depend name="include/tink/core/Outcome.h"/>
    <depend name="include/tink/core/TypedError.h"/>
    <depend name="include/tink/core/_Future/FutureObject.h"/>
    <depend name="include/tink/http/Fetch.h"/>
-   <depend name="include/tink/http/HeaderField.h"/>
    <depend name="include/tink/http/Message.h"/>
    <depend name="include/tink/http/_Fetch/FetchResponse_Impl_.h"/>
   </file>

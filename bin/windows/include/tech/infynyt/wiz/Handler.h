@@ -5,6 +5,7 @@
 #include <hxcpp.h>
 #endif
 
+HX_DECLARE_CLASS2(haxe,io,Bytes)
 HX_DECLARE_CLASS3(tech,infynyt,wiz,Handler)
 
 namespace tech{
@@ -60,11 +61,8 @@ class HXCPP_CLASS_ATTRIBUTES Handler_obj : public ::hx::Object
 		static  ::Dynamic fetch(::String name);
 		static ::Dynamic fetch_dyn();
 
-		static ::String download( ::Dynamic pkg);
+		static  ::haxe::io::Bytes download( ::Dynamic pkg);
 		static ::Dynamic download_dyn();
-
-		static bool compile(::String dir);
-		static ::Dynamic compile_dyn();
 
 		static bool execute(::String bin);
 		static ::Dynamic execute_dyn();
